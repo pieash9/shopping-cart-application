@@ -1,9 +1,21 @@
 import { Link } from "react-router-dom";
 import { FaRegUserCircle, FaShoppingCart } from "react-icons/fa";
+import CartModal from "../Modal/CartModal";
+import { useState } from "react";
+import useProduct from "../../hooks/useProduct";
 
 const Navbar = () => {
+  const { user } = useProduct();
+  console.log(user);
+  const [isOpen, setIsOpen] = useState(false);
+  // close modal
+  const closeModal = () => {
+    setIsOpen(false);
+  };
   return (
     <nav className=" bg-base-100  shadow-xl sticky top-0">
+      {/* cart modal */}
+      <CartModal isOpen={isOpen} closeModal={closeModal} />
       <div className="navbar max-w-7xl mx-auto">
         <div className="navbar-start ">
           <Link
@@ -25,8 +37,9 @@ const Navbar = () => {
               {/* All cart items count */}0
             </div>
             <FaShoppingCart
+              onClick={() => setIsOpen(true)}
               size={22}
-              className="text-blue-600 cursor-pointer"
+              className="text-blue-500 cursor-pointer"
             />
           </div>
         </div>
