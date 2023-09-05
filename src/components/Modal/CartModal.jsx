@@ -123,7 +123,7 @@ const CartModal = ({ isOpen, closeModal }) => {
                     <p className="text-lg text-gray-700 font-medium">
                       SubTotal
                     </p>
-                    <p className="text-xl font-semibold text-gray-700">
+                    <p className="text-xl font-semibold text-blue-500">
                       ${total.toFixed(2)}
                     </p>
                   </div>

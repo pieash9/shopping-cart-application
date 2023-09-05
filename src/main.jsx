@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <ProductProvider>
       <RouterProvider router={router}>
         <App />
-        <Toaster />
+        <Toaster position="bottom-center" />
       </RouterProvider>
     </ProductProvider>
   </QueryClientProvider>

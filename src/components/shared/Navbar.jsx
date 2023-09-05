@@ -6,8 +6,12 @@ import useProduct from "../../hooks/useProduct";
 
 const Navbar = () => {
   const { products } = useProduct();
-  console.log(products);
 
+  // calculate total cart item price
+  const totalCartItemCount = products.reduce(
+    (total, item) => total + 1 * item.quantity,
+    0
+  );
   const [isOpen, setIsOpen] = useState(false);
   // close modal
   const closeModal = () => {
@@ -36,7 +40,8 @@ const Navbar = () => {
           </div>
           <div className="px-3 relative">
             <div className="badge badge-info badge-sm text-xs absolute -mt-2 -right-2 ">
-              {/* All cart items count */}0
+              {/* All cart items count */}
+              {totalCartItemCount}
             </div>
             <FaShoppingCart
               onClick={() => setIsOpen(true)}

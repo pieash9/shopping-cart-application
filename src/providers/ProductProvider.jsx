@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { createContext, useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
 export const ProductContext = createContext(null);
 
 const ProductProvider = ({ children }) => {
@@ -16,7 +17,7 @@ const ProductProvider = ({ children }) => {
     localStorage.setItem("products", JSON.stringify(products));
   }, [products]);
 
-  // Function to add a product to the state
+  //  add a product to the state
   const addProduct = (productId, quantity, image, name, price) => {
     if (!productId || !quantity || !image || !name || !price) {
       return;
@@ -40,19 +41,22 @@ const ProductProvider = ({ children }) => {
       const updatedProducts = [...products];
       updatedProducts[existingProductIndex].quantity += newProduct.quantity;
       setProducts(updatedProducts);
+      toast.success("Successfully created!");
     } else {
       // If the product does not exist, add it to the state
       setProducts([...products, newProduct]);
+      toast.success("Successfully created!");
     }
   };
 
-  // Function to remove a product from the state
+  //  remove a product from the state
   const removeProduct = (_id) => {
     const updatedProducts = products.filter((product) => product._id !== _id);
     setProducts(updatedProducts);
+    toast.success("product removed");
   };
 
-  // Function to increase product quantity
+  //  increase product quantity
   const increaseQuantity = (_id) => {
     const updatedProducts = products.map((product) => {
       if (product._id === _id) {
@@ -63,7 +67,7 @@ const ProductProvider = ({ children }) => {
     setProducts(updatedProducts);
   };
 
-  // Function to decrease product quantity
+  //  decrease product quantity
   const decreaseQuantity = (_id) => {
     const updatedProducts = products.map((product) => {
       if (product._id === _id && product.quantity > 0) {
