@@ -22,7 +22,7 @@ const Navbar = () => {
     <nav className=" bg-base-100  shadow-xl sticky top-0">
       {/* cart modal */}
       <CartModal isOpen={isOpen} closeModal={closeModal} />
-      <div className="navbar max-w-7xl mx-auto">
+      <div className="navbar max-w-7xl mx-auto px-4">
         <div className="navbar-start ">
           <Link
             to="/"
