@@ -5,13 +5,15 @@ import { useState } from "react";
 import useProduct from "../../hooks/useProduct";
 
 const Navbar = () => {
-  const { user } = useProduct();
-  console.log(user);
+  const { products } = useProduct();
+  console.log(products);
+
   const [isOpen, setIsOpen] = useState(false);
   // close modal
   const closeModal = () => {
     setIsOpen(false);
   };
+
   return (
     <nav className=" bg-base-100  shadow-xl sticky top-0">
       {/* cart modal */}

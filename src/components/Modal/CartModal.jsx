@@ -2,9 +2,14 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import useProduct from "../../hooks/useProduct";
 
-const CartModal = ({ isOpen, closeModal, allCarts = [] }) => {
-  const total = allCarts.reduce(
+const CartModal = ({ isOpen, closeModal }) => {
+  const { products, removeProduct, increaseQuantity, decreaseQuantity } =
+    useProduct();
+
+  // calculate total cart item price
+  const total = products.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
@@ -50,9 +55,16 @@ const CartModal = ({ isOpen, closeModal, allCarts = [] }) => {
                     Cart
                   </Dialog.Title>
                   <div className="mt-2 grid grid-cols-1 gap-5">
-                    {allCarts &&
-                      allCarts.length > 0 &&
-                      allCarts.map((item) => (
+                    {/* show empty product status */}
+                    {products.length === 0 && (
+                      <p className="text-gray-600 text-center font-semibold">
+                        No products in the cart.
+                      </p>
+                    )}
+
+                    {products &&
+                      products.length > 0 &&
+                      products.map((item) => (
                         <div
                           key={item._id}
                           className="group transition-all border rounded p-2 shadow-md hover:shadow-lg duration-300"
@@ -69,29 +81,39 @@ const CartModal = ({ isOpen, closeModal, allCarts = [] }) => {
                               <h3 className="mb-2 font-medium">{item?.name}</h3>
                               <div className="flex justify-between">
                                 <div className="">
-                                  <button className="btn btn-info btn-xs rounded-sm px-3 mr-2">
-                                    {" "}
-                                    +{" "}
-                                  </button>{" "}
-                                  {item?.quantity}{" "}
                                   <button
+                                    onClick={() => increaseQuantity(item?._id)}
+                                    className="btn btn-info btn-xs rounded-sm px-3 mr-2"
+                                  >
+                                    +
+                                  </button>
+                                  {item?.quantity}
+                                  <button
+                                    onClick={() => decreaseQuantity(item?._id)}
                                     disabled={item?.quantity === 1}
                                     className="btn btn-info btn-xs rounded-sm px-3 ml-2"
                                   >
-                                    {" "}
-                                    -{" "}
+                                    -
                                   </button>
-                                </div>{" "}
-                                <p>x</p>${item?.price}
+                                </div>
+                                <p>x</p>
+                                <span className="font-medium">
+                                  ${item?.price}
+                                </span>
                               </div>
                             </div>
 
-                            <button
-                              //   onClick={() => handleDelete(item._id)}
-                              className="cursor-pointer text-opacity-0 group-hover:text-opacity-100 text-red-500 text-3xl font-medium   duration-700 "
+                            <div
+                              className="tooltip tooltip-top"
+                              data-tip="remove"
                             >
-                              x
-                            </button>
+                              <button
+                                onClick={() => removeProduct(item?._id)}
+                                className="cursor-pointer  text-red-400 hover:text-red-500 text-2xl font-medium   duration-300 "
+                              >
+                                x
+                              </button>
+                            </div>
                           </div>
                         </div>
                       ))}

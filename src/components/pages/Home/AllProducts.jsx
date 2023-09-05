@@ -1,9 +1,9 @@
 import useAllProductsData from "../../../hooks/useAllProductsData";
 import ProductCard from "../../Card/ProductCard";
+import Loader from "../../utils/Loader";
 
 const AllProducts = () => {
-  const { allProductsData } = useAllProductsData();
-
+  const { allProductsData, isLoading } = useAllProductsData();
   return (
     <div className="mb-10">
       <div className="my-4">
@@ -13,6 +13,8 @@ const AllProducts = () => {
           <div className="flex-grow ml-4 border-gray-300 border-b" />
         </div>
       </div>
+      {/* product loader */}
+      {isLoading && <Loader />}
       <div className="grid grid-cols-2  md:grid-cols-4 lg:grid-cols-5 gap-3">
         {allProductsData &&
           allProductsData.length > 0 &&
