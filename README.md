@@ -2,7 +2,7 @@
 
 This is a simple shopping cart application built using Vite, React, and other technologies. It allows users to browse products, add them to the cart, and manage the cart contents.
 
-# [live link](https://shop-crafter.netlify.app/)
+[live link](https://shop-crafter.netlify.app/)
 ## Features
 
 - Browse products
